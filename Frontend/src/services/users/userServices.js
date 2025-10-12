@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api/users"; // updated to match backend
+const BASE_URL = "https://vitalbowl-backend.onrender.com/api/users"; // updated to match backend
 
 //! Login
 export const loginAPI = async ({ email, password }) => {
@@ -58,7 +58,7 @@ export const deleteProfileAPI = async ({ token }) => {
 
 export const fetchUserStatsAPI = async () => {
   const user = JSON.parse(localStorage.getItem("vitalbowl_user") || "null");
-  const res = await axios.get("http://localhost:5000/api/users/stats", {
+  const res = await axios.get("https://vitalbowl-backend.onrender.com/api/users/stats", {
     headers: { Authorization: `Bearer ${user?.token || ""}` },
   });
   return res.data; // { totalMeals, totalCalories, activeGoals }

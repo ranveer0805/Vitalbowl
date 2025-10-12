@@ -1,7 +1,7 @@
 // frontend/src/services/meals/mealService.js
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/meals";
+const API_URL = "https://vitalbowl-backend.onrender.com/api/meals";
 const authHeaders = () => {
   const user = JSON.parse(localStorage.getItem("vitalbowl_user") || "null");
   return { headers: { Authorization: `Bearer ${user?.token || ""}` } };
