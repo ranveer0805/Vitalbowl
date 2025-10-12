@@ -54,7 +54,7 @@ const UserDetails = () => {
           await updateWithToken({ ...values, token: user.token });
           dispatch(logoutAction());
           setShowSuccess(true);
-          setTimeout(() => navigate("/login"), 7000);
+          setTimeout(() => navigate("/login"), 4000);
         } else {
           // New user after registration
           const email = localStorage.getItem('newUserEmail');
@@ -66,7 +66,7 @@ const UserDetails = () => {
           await updateWithEmail({ email, ...values });
           localStorage.removeItem('newUserEmail');
           setShowSuccess(true);
-          setTimeout(() => navigate("/login"), 7000);
+          setTimeout(() => navigate("/login"), 4000);
         }
       } catch (e) {
         console.error(e);
