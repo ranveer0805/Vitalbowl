@@ -10,33 +10,29 @@ const goalRoutes = require("./routes/goal");
 const mealRoutes = require("./routes/meal");
 const userRoutes = require("./routes/user");
 
-require("dotenv").config(); // load .env variables
+require("dotenv").config();
 
 const app = express();
 const server = http.createServer(app);
 
-// Use environment variable for frontend URL or default
 const FRONTEND_URL = process.env.FRONTEND_URL || "https://vitalbowl.vercel.app";
 
-// ===== CORS MIDDLEWARE =====
-app.use(cors({
+// ===== CORS =====
+const corsOptions = {
   origin: FRONTEND_URL,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
-}));
+  credentials: true,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
 
-// Handle preflight requests for all routes
-app.options("*", cors({
-  origin: FRONTEND_URL,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
-}));
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // handle preflight requests
 
 app.use(express.json());
 
-// ===== Socket.io Setup =====
+// ===== Socket.io =====
 const io = socketIo(server, {
   cors: {
     origin: FRONTEND_URL,
@@ -74,7 +70,6 @@ mongoose.connect(MONGO_URI)
   .then(() => {
     console.log("MongoDB connected");
 
-    // Drop unique index on user in goals collection if exists
     const db = mongoose.connection.db;
     db.collection("goals").dropIndex("user_1")
       .then(() => console.log("Unique index on user dropped successfully"))
