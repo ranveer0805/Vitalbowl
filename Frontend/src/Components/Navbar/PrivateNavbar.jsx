@@ -73,6 +73,7 @@ export default function PrivateNavbar() {
         ))}
 
         {/* Theme Toggle */}
+        {/*
         <button
           onClick={toggleTheme}
           className="block w-full text-center px-4 py-3 rounded-lg text-sm font-semibold text-[#3B4D1F] shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#A3C15D] hover:text-[#3B2F2F] animate-slideInUp"
@@ -86,6 +87,7 @@ export default function PrivateNavbar() {
           )}
           <span className="mt-1 block text-xs">Theme</span>
         </button>
+        */}
       </div>
 
       {/* Logout Button */}

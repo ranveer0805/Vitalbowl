@@ -60,6 +60,7 @@ export default function PublicNavbar() {
               {/* Right: Buttons */}
               <div className="flex space-x-3">
                 {/* Theme Toggle */}
+                {/*
                 <button
                   onClick={toggleTheme}
                   className="inline-flex items-center justify-center rounded-full bg-avocadoCream px-3 py-2 text-sm font-bold text-avocadoGreen shadow-md transition-transform duration-300 hover:scale-105 hover:bg-avocadoLightGreen"
@@ -67,6 +68,7 @@ export default function PublicNavbar() {
                 >
                   {isDarkMode ? <FaSun className="h-5 w-5" /> : <FaMoon className="h-5 w-5" />}
                 </button>
+                */}
 
                 {/* Register */}
                 <Link

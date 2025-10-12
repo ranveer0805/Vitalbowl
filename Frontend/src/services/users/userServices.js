@@ -6,6 +6,8 @@ const API_URL = `${BASE_URL}/users`;
 
 // ===== Login =====
 export const loginAPI = async ({ email, password }) => {
+  console.log('BASE_URL in loginAPI:', BASE_URL);
+  console.log('Full login URL:', `${API_URL}/login`);
   const res = await axios.post(
     `${API_URL}/login`,
     { email, password },
