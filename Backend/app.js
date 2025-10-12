@@ -8,8 +8,7 @@ const errorHandler = require("./middlewares/errorHandlerMiddleware");
 
 const goalRoutes = require("./routes/goal");
 const mealRoutes = require("./routes/meal");
-const userRoutes = require("./routes/user");
-app.use("/api/users", userRoutes);
+const userRoutes = require("./routes/user"); // make sure this file is lowercase 'user.js'
 
 require("dotenv").config();
 
@@ -29,7 +28,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // handle preflight requests
+app.options("*", cors(corsOptions)); // handle preflight
 
 app.use(express.json());
 
@@ -44,21 +43,16 @@ const io = socketIo(server, {
 
 io.on("connection", (socket) => {
   console.log("A user connected");
-
   socket.on("join", (userId) => {
     socket.join(userId);
-    console.log(`User ${userId} joined room`);
   });
-
-  socket.on("disconnect", () => {
-    console.log("A user disconnected");
-  });
+  socket.on("disconnect", () => {});
 });
 
 // ===== Routes =====
 app.use("/api/goals", goalRoutes);
 app.use("/api/meals", mealRoutes);
-app.use("/api/users", userRoutes);
+app.use("/api/users", userRoutes); // ensure 'user.js' exists in ./routes/
 
 // ===== Error Handler =====
 app.use(errorHandler);
@@ -70,12 +64,6 @@ const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/vitalbowl"
 mongoose.connect(MONGO_URI)
   .then(() => {
     console.log("MongoDB connected");
-
-    const db = mongoose.connection.db;
-    db.collection("goals").dropIndex("user_1")
-      .then(() => console.log("Unique index on user dropped successfully"))
-      .catch(err => console.log("Index drop info:", err.message || "No such index or already dropped"));
-
     server.listen(PORT, "0.0.0.0", () => console.log(`Server running on port ${PORT}`));
   })
   .catch(err => console.error("MongoDB connection error:", err));
