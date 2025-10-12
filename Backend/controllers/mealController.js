@@ -5,7 +5,7 @@ const mealController = {
     try {
       const { io } = require("../app");
       const { type, food, description, fat, protein, carbs, calories, date } = req.body;
-      if (!type || !food || !fat || !protein || !carbs || !calories || !date) {
+      if (!type || !food || fat == null || protein == null || carbs == null || calories == null || !date) {
         return res.status(400).json({ message: "All fields are required" });
       }
 
