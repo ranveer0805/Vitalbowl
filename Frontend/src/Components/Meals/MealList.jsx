@@ -62,6 +62,15 @@ const MealList = () => {
     }));
   };
 
+  const clearFilters = () => {
+    setFilters({
+      startDate: "",
+      endDate: "",
+      type: "",
+      searchFood: "",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-avocadoCream p-6 text-avocadoDarkBrown flex flex-col items-center animate-fadeIn">
       <div className="w-full max-w-3xl space-y-6">
@@ -107,6 +116,12 @@ const MealList = () => {
             className="p-2 rounded-lg border border-avocadoLightGreen"
             placeholder="Search Food"
           />
+          <button
+            onClick={clearFilters}
+            className="bg-avocadoGreen text-avocadoDarkBrown px-4 py-2 rounded-lg shadow hover:bg-avocadoDarkGreen transition"
+          >
+            Clear Filters
+          </button>
         </div>
 
         {isLoading || isFetching ? (
