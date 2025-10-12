@@ -15,7 +15,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL || "https://vitalbowl.vercel.app",
     methods: ["GET", "POST"]
   }
 });
@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
 });
 
 // Middleware
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: process.env.FRONTEND_URL || "https://vitalbowl.vercel.app" }));
 app.use(express.json());
 
 // Routes
@@ -59,7 +59,7 @@ mongoose
     db.collection('goals').dropIndex('user_1')
       .then(() => console.log("Unique index on user dropped successfully"))
       .catch(err => console.log("Index drop info:", err.message || "No such index or already dropped"));
-    server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    server.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
   })
   .catch((err) => console.error("MongoDB connection error:", err));
 
