@@ -1,12 +1,13 @@
 // frontend/src/services/users/userServices.js
 import axios from "axios";
+import { BASE_URL } from "../../utils/url.js";
 
-const BASE_URL = "https://vitalbowl-backend.onrender.com/api/users";
+const API_URL = `${BASE_URL}/users`;
 
 // ===== Login =====
 export const loginAPI = async ({ email, password }) => {
   const res = await axios.post(
-    `${BASE_URL}/login`,
+    `${API_URL}/login`,
     { email, password },
     {
       headers: { "Content-Type": "application/json" },
@@ -19,7 +20,7 @@ export const loginAPI = async ({ email, password }) => {
 // ===== Register =====
 export const registerAPI = async ({ username, email, password }) => {
   const res = await axios.post(
-    `${BASE_URL}/register`,
+    `${API_URL}/register`,
     { username, email, password },
     {
       headers: { "Content-Type": "application/json" },
@@ -32,7 +33,7 @@ export const registerAPI = async ({ username, email, password }) => {
 // ===== Change Password =====
 export const changePasswordAPI = async ({ newPassword, token }) => {
   const res = await axios.put(
-    `${BASE_URL}/change-password`,
+    `${API_URL}/change-password`,
     { newPassword },
     {
       headers: {
@@ -48,7 +49,7 @@ export const changePasswordAPI = async ({ newPassword, token }) => {
 // ===== Update Profile =====
 export const updateProfileAPI = async (data) => {
   const { token, ...body } = data;
-  const res = await axios.put(`${BASE_URL}/update-profile`, body, {
+  const res = await axios.put(`${API_URL}/update-profile`, body, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -61,7 +62,7 @@ export const updateProfileAPI = async (data) => {
 // ===== Update User Details =====
 export const updateUserDetailsAPI = async ({ age, gender, height, weight, diet, token }) => {
   const res = await axios.put(
-    `${BASE_URL}/update-details`,
+    `${API_URL}/update-details`,
     { age, gender, height, weight, diet },
     {
       headers: {
@@ -77,7 +78,7 @@ export const updateUserDetailsAPI = async ({ age, gender, height, weight, diet, 
 // ===== Update User Details By Email =====
 export const updateUserDetailsByEmailAPI = async ({ email, age, gender, height, weight, diet }) => {
   const res = await axios.put(
-    `${BASE_URL}/update-details-by-email`,
+    `${API_URL}/update-details-by-email`,
     { email, age, gender, height, weight, diet },
     {
       headers: { "Content-Type": "application/json" },
@@ -89,7 +90,7 @@ export const updateUserDetailsByEmailAPI = async ({ email, age, gender, height, 
 
 // ===== Delete Profile =====
 export const deleteProfileAPI = async ({ token }) => {
-  const res = await axios.delete(`${BASE_URL}/profile`, {
+  const res = await axios.delete(`${API_URL}/profile`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -102,7 +103,7 @@ export const deleteProfileAPI = async ({ token }) => {
 // ===== Fetch User Stats =====
 export const fetchUserStatsAPI = async () => {
   const user = JSON.parse(localStorage.getItem("vitalbowl_user") || "null");
-  const res = await axios.get(`${BASE_URL}/stats`, {
+  const res = await axios.get(`${API_URL}/stats`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${user?.token || ""}`,
