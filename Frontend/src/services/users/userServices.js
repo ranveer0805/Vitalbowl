@@ -1,65 +1,113 @@
+// frontend/src/services/users/userServices.js
 import axios from "axios";
 
-const BASE_URL = "https://vitalbowl-backend.onrender.com/api/users"; // updated to match backend
+const BASE_URL = "https://vitalbowl-backend.onrender.com/api/users";
 
-//! Login
+// ===== Login =====
 export const loginAPI = async ({ email, password }) => {
-  const res = await axios.post(`${BASE_URL}/login`, { email, password });
+  const res = await axios.post(
+    `${BASE_URL}/login`,
+    { email, password },
+    {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: false, // set to true if backend uses cookies
+    }
+  );
   return res.data;
 };
 
-//! Register
+// ===== Register =====
 export const registerAPI = async ({ username, email, password }) => {
-  const res = await axios.post(`${BASE_URL}/register`, { username, email, password });
+  const res = await axios.post(
+    `${BASE_URL}/register`,
+    { username, email, password },
+    {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: false,
+    }
+  );
   return res.data;
 };
 
-//! Change Password
+// ===== Change Password =====
 export const changePasswordAPI = async ({ newPassword, token }) => {
   const res = await axios.put(
     `${BASE_URL}/change-password`,
     { newPassword },
-    { headers: { Authorization: `Bearer ${token}` } }
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: false,
+    }
   );
   return res.data;
 };
 
-//! Update Profile
+// ===== Update Profile =====
 export const updateProfileAPI = async (data) => {
   const { token, ...body } = data;
-  const res = await axios.put(
-    `${BASE_URL}/update-profile`,
-    body,
-    { headers: { Authorization: `Bearer ${token}` } }
-  );
-  return res.data;
-};
-
-export const updateUserDetailsAPI = async ({ age, gender, height, weight, diet, token }) => {
-  const res = await axios.put(
-    `${BASE_URL}/update-details`,
-    { age, gender, height, weight, diet },
-    { headers: { Authorization: `Bearer ${token}` } }
-  );
-  return res.data;
-};
-
-export const updateUserDetailsByEmailAPI = async ({ email, age, gender, height, weight, diet }) => {
-  const res = await axios.put(`${BASE_URL}/update-details-by-email`, { email, age, gender, height, weight, diet });
-  return res.data;
-};
-
-export const deleteProfileAPI = async ({ token }) => {
-  const res = await axios.delete(`${BASE_URL}/profile`, {
-    headers: { Authorization: `Bearer ${token}` },
+  const res = await axios.put(`${BASE_URL}/update-profile`, body, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: false,
   });
   return res.data;
 };
 
+// ===== Update User Details =====
+export const updateUserDetailsAPI = async ({ age, gender, height, weight, diet, token }) => {
+  const res = await axios.put(
+    `${BASE_URL}/update-details`,
+    { age, gender, height, weight, diet },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: false,
+    }
+  );
+  return res.data;
+};
+
+// ===== Update User Details By Email =====
+export const updateUserDetailsByEmailAPI = async ({ email, age, gender, height, weight, diet }) => {
+  const res = await axios.put(
+    `${BASE_URL}/update-details-by-email`,
+    { email, age, gender, height, weight, diet },
+    {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: false,
+    }
+  );
+  return res.data;
+};
+
+// ===== Delete Profile =====
+export const deleteProfileAPI = async ({ token }) => {
+  const res = await axios.delete(`${BASE_URL}/profile`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: false,
+  });
+  return res.data;
+};
+
+// ===== Fetch User Stats =====
 export const fetchUserStatsAPI = async () => {
   const user = JSON.parse(localStorage.getItem("vitalbowl_user") || "null");
-  const res = await axios.get("https://vitalbowl-backend.onrender.com/api/users/stats", {
-    headers: { Authorization: `Bearer ${user?.token || ""}` },
+  const res = await axios.get(`${BASE_URL}/stats`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${user?.token || ""}`,
+    },
+    withCredentials: false,
   });
   return res.data; // { totalMeals, totalCalories, activeGoals }
 };
