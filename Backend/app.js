@@ -13,18 +13,12 @@ const userRoutes = require("./routes/user"); // make sure this file is lowercase
 require("dotenv").config();
 
 const app = express();
-const URL = process.env.DATABASE_URL; // better naming (uppercase, matches env var)
-
-//! Connect to mongoDb
-mongoose
-  .connect(URL)
-  .then(() => console.log("✅ Connected to MongoDB"))
-  .catch((e) => console.error("❌ MongoDB connection error:", e.message));
+const server = http.createServer(app);
 
 //!Cors Configuratin
 const corsOptions = {
   origin: [
-    //"http://localhost:5173",   // dev frontend
+    "http://localhost:5173",   // dev frontend
     "https://vitalbowl.vercel.app" // deployed frontend
   ],
   credentials: true,
@@ -35,7 +29,7 @@ app.use(express.json());
 // ===== Socket.io =====
 const io = socketIo(server, {
   cors: {
-    origin: FRONTEND_URL,
+    origin: "http://localhost:5173",
     methods: ["GET", "POST"],
     credentials: true
   }
@@ -59,7 +53,7 @@ app.use(errorHandler);
 
 // ===== MongoDB Connection & Server Start =====
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/vitalbowl";
+const MONGO_URI = process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/vitalbowl";
 
 mongoose.connect(MONGO_URI)
   .then(() => {
