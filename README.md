@@ -5,16 +5,6 @@ VitalBowl is a modern, full-stack nutrition and fitness goal-tracking applicatio
 
 🚀 Live Demo
 
-Component
-
-Deployment
-
-Link
-
-Live Frontend
-
-Vercel
-
 https://vitalbowl.vercel.app/
 
 ✨ Core Features & Benefits 🥗
