@@ -1,4 +1,0 @@
-- [x] Add clear filter button in MealList.jsx
-- [x] Test the clear filter functionality
-- [x] Commit changes to git
-- [x] Push changes to repository
