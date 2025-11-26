@@ -1,4 +1,4 @@
-<h1 style="font-size: 1.5em; margin-top: 1.5rem;">🥑 VitalBowl: Personalized Nutritional Tracking Platform</h1>
+<h2 style="font-size: 1.5em; margin-top: 1.5rem;">🥑 VitalBowl: Personalized Nutritional Tracking Platform</h2>
 
 
 VitalBowl is a modern, full-stack nutrition and fitness goal-tracking application designed to help users manage their dietary intake and achieve their health objectives. With a vibrant, avocado-inspired theme, VitalBowl makes tracking meals engaging and insightful.
